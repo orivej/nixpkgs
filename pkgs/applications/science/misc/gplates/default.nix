@@ -19,6 +19,8 @@ stdenv.mkDerivation rec {
     doxygen graphviz gmp
   ];
 
+  enableParallelBuilding = true;
+
   meta = with stdenv.lib; {
     description = "Desktop software for the interactive visualisation of plate-tectonics";
     homepage = https://www.gplates.org;

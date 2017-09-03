@@ -3,12 +3,12 @@
 , libpng }:
 
 stdenv.mkDerivation rec {
-  version = "1.11.3";
+  version = "1.11.5";
   name = "gdal-${version}";
 
   src = fetchurl {
-    url = "http://download.osgeo.org/gdal/${version}/${name}.tar.gz";
-    sha256 = "561588bdfd9ca91919d4679a77a2b44214b158934ee8b425295ca5be33a1014d";
+    url = "http://download.osgeo.org/gdal/${version}/${name}.tar.xz";
+    sha256 = "0hphxzvy23v3vqxx1y22hhhg4cypihrb8555y12nb4mrhzlw7zfl";
   };
 
   buildInputs = [ unzip libjpeg libtiff libpng python pythonPackages.numpy proj openssl ];
@@ -21,13 +21,12 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  # Don't use optimization for gcc >= 4.3. That's said to be causing segfaults.
   # Unset CC and CXX as they confuse libtool.
-  preConfigure = "export CFLAGS=-O0 CXXFLAGS=-O0; unset CC CXX";
+  preConfigure = "unset CC CXX";
 
   configureFlags = [
     "--with-jpeg=${libjpeg.dev}"
-    "--with-libtiff=${libtiff.dev}" # optional (without largetiff support)
+    "--with-libtiff=${libtiff.dev}" # optional
     "--with-libpng=${libpng.dev}"   # optional
     "--with-libz=${zlib.dev}"       # optional
 
@@ -50,6 +49,8 @@ stdenv.mkDerivation rec {
     mkdir -p $pythonInstallDir
     export PYTHONPATH=''${PYTHONPATH:+''${PYTHONPATH}:}$pythonInstallDir
   '';
+
+  enableParallelBuilding = true;
 
   meta = {
     description = "Translator library for raster geospatial data formats";
