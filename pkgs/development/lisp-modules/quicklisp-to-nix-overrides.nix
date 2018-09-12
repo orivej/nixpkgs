@@ -6,6 +6,7 @@ let
   };
   multiOverride = l: x: if l == [] then {} else
     ((builtins.head l) x) // (multiOverride (builtins.tail l) x);
+  openssl = pkgs.openssl_1_1_0;
 in
 {
   stumpwm = x:{
@@ -36,7 +37,7 @@ in
       '';
     };
   };
-  hunchentoot = addNativeLibs [pkgs.openssl];
+  hunchentoot = addNativeLibs [openssl];
   iolib = x: rec {
     propagatedBuildInputs = (x.propagatedBuildInputs or [])
      ++ (with pkgs; [libfixposix gcc])
@@ -45,11 +46,11 @@ in
   cxml = skipBuildPhase;
   wookie = addNativeLibs (with pkgs; [libuv openssl]);
   lev = addNativeLibs [pkgs.libev];
-  cl_plus_ssl = addNativeLibs [pkgs.openssl];
+  cl_plus_ssl = addNativeLibs [openssl];
   cl-colors = skipBuildPhase;
   cl-libuv = addNativeLibs [pkgs.libuv];
-  cl-async-ssl = addNativeLibs [pkgs.openssl];
-  cl-async-test = addNativeLibs [pkgs.openssl];
+  cl-async-ssl = addNativeLibs [openssl];
+  cl-async-test = addNativeLibs [openssl];
   clsql = x: {
     propagatedBuildInputs = with pkgs; [mysql.connector-c postgresql sqlite zlib];
     overrides = y: (x.overrides y) // {

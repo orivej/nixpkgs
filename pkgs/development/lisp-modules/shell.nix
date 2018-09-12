@@ -1,5 +1,6 @@
 with import ../../../default.nix {};
 let
+openssl = openssl_1_1_0;
 self = rec {
   name = "ql-to-nix";
   env = buildEnv { name = name; paths = buildInputs; };
