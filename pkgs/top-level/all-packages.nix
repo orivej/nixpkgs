@@ -4982,6 +4982,9 @@ with pkgs;
   pwnat = callPackage ../tools/networking/pwnat { };
 
   pwndbg = python3Packages.callPackage ../development/tools/misc/pwndbg { };
+  pwndbg-python2 = pythonPackages.callPackage ../development/tools/misc/pwndbg {
+    gdb = gdb-python2;
+  };
 
   pycangjie = pythonPackages.pycangjie;
 
@@ -8526,6 +8529,9 @@ with pkgs;
   gede = libsForQt59.callPackage ../development/tools/misc/gede { };
 
   gdbgui = python3Packages.callPackage ../development/tools/misc/gdbgui { };
+  gdbgui-python2 = pythonPackages.callPackage ../development/tools/misc/gdbgui {
+    gdb = gdb-python2;
+  };
 
   pmd = callPackage ../development/tools/analysis/pmd { };
 
@@ -9052,6 +9058,9 @@ with pkgs;
   gdb = callPackage ../development/tools/misc/gdb {
     guile = null;
     python = python3;
+  };
+  gdb-python2 = gdb.override {
+    python = python2;
   };
 
   jhiccup = callPackage ../development/tools/java/jhiccup { };
