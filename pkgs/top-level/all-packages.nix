@@ -9051,6 +9051,7 @@ with pkgs;
 
   gdb = callPackage ../development/tools/misc/gdb {
     guile = null;
+    python = python3;
   };
 
   jhiccup = callPackage ../development/tools/java/jhiccup { };
