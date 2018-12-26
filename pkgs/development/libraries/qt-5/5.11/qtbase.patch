@@ -263,7 +263,7 @@ diff --git a/mkspecs/features/mac/default_post.prf b/mkspecs/features/mac/defaul
 index 21d487f1f9..a0e5c68b7e 100644
 --- a/mkspecs/features/mac/default_post.prf
 +++ b/mkspecs/features/mac/default_post.prf
-@@ -24,196 +24,3 @@ qt {
+@@ -62,199 +62,3 @@ qt {
          }
      }
  }
@@ -458,7 +458,10 @@ index 21d487f1f9..a0e5c68b7e 100644
 -xcode_product_bundle_identifier_setting.value = $$QMAKE_TARGET_BUNDLE_PREFIX
 -isEmpty(xcode_product_bundle_identifier_setting.value): \
 -    xcode_product_bundle_identifier_setting.value = "com.yourcompany"
--xcode_product_bundle_identifier_setting.value = "$${xcode_product_bundle_identifier_setting.value}.${PRODUCT_NAME:rfc1034identifier}"
+-xcode_product_bundle_target = $$QMAKE_BUNDLE
+-isEmpty(xcode_product_bundle_target): \
+-    xcode_product_bundle_target = ${PRODUCT_NAME:rfc1034identifier}
+-xcode_product_bundle_identifier_setting.value = "$${xcode_product_bundle_identifier_setting.value}.$${xcode_product_bundle_target}"
 -QMAKE_MAC_XCODE_SETTINGS += xcode_product_bundle_identifier_setting
 diff --git a/mkspecs/features/mac/default_pre.prf b/mkspecs/features/mac/default_pre.prf
 index e3534561a5..3b01424e67 100644
